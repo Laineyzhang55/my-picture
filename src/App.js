@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {lazy, Suspense} from 'react';
 import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import {
+  Switch,
+  Route
+} from 'react-router-dom';
+
+const Home = lazy(() => import('./pages/Home'));
+const History = lazy(() => import('./pages/History'));
+const About = lazy(() => import('./pages/About'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const Upload = lazy(() => import('./pages/Upload'));
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <main>
+        <Suspense fallback={<div>Loading!!</div>}>
+          <Switch>
+            <Route path='/' exact component={Home} />
+            <Route path='/upload' exact component={Upload} />
+            <Route path='/about' component={About} />
+            <Route path='/history' component={History} />
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
+          </Switch>
+        </Suspense> 
+      </main>
+      <Footer />
+    </>
   );
 }
 
