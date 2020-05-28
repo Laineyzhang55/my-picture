@@ -3,6 +3,7 @@ import { Form, Input, Button } from 'antd';
 import styled from 'styled-components';
 import { useStores } from '../stores';
 import { useHistory } from "react-router-dom";
+import { observer } from 'mobx-react'
 
 
 const Login = styled.div`
@@ -18,7 +19,7 @@ const H2 = styled.h2`
   font-size: 24px;
 `;
 
-const Rejister = () => {
+const Component =observer(() => {
   const layout = {
     labelCol: {
       span: 6,
@@ -40,7 +41,7 @@ const Rejister = () => {
     AuthStore.setUsername(values.username);
     AuthStore.setPassword(values.password);
     AuthStore.login().then(()=>{
-      history.push('/');
+      history.push('/upload');
     }).catch((err)=> {
       console.log(err)
       console.log('登录失败');
@@ -98,6 +99,6 @@ const Rejister = () => {
       </Form>
       </Login>
     );
-  };  
+  });  
 
-export default Rejister;
+export default Component;

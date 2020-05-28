@@ -35,8 +35,8 @@ const Nav = styled.nav`
 const StyledButton = styled(Button)`
   margin-left: 15px;
 `
-
 const Component = observer(() => {
+  const { UserStore, AuthStore } = useStores()
   const history = useHistory();
   const handleLogin= ()=> {
     history.push("/login");
@@ -47,7 +47,7 @@ const Component = observer(() => {
   const handleRegister = () =>{
     history.push("/register");
   }
-  const { UserStore, AuthStore } = useStores()
+  
   return (
     <Header>
       <StyledLink to='/' exact>首页</StyledLink>
