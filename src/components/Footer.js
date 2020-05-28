@@ -13,7 +13,7 @@ const Footer = styled.footer`
 const Component = () => {
   return (
     <Footer>
-      <p>My Picture</p>
+      <p>My Picture 记录你的每一次改变</p>
     </Footer>
   )
 }
