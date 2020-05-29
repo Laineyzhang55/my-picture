@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button,message } from 'antd';
 import styled from 'styled-components';
 import { useStores } from '../stores';
 import { useHistory } from "react-router-dom";
@@ -44,7 +44,7 @@ const Component =observer(() => {
       history.push('/upload');
     }).catch((err)=> {
       console.log(err)
-      console.log('登录失败');
+      message.error('登录失败')
     })
   };
 

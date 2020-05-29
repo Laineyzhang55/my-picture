@@ -1,5 +1,5 @@
 import React from 'react';
-import { Upload, message } from 'antd';
+import { Upload, message, Spin } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { useStores } from '../stores';
 import styled from 'styled-components';
@@ -59,6 +59,7 @@ const Component = observer(() => {
     }
      </Tooltips>
       <Load>
+        <Spin tip="上传中" spinning={ImageStore.isUploading}>
         <Dragger {...props}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
@@ -69,6 +70,7 @@ const Component = observer(() => {
             band files
           </p>
         </Dragger>
+        </Spin>
       </Load>
         {
           ImageStore.serverFile? <Result>

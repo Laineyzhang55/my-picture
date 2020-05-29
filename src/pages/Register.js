@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import styled from 'styled-components';
 import { useStores } from '../stores';
 import { useHistory } from "react-router-dom";
@@ -41,7 +41,7 @@ const Rejister = () => {
     AuthStore.register().then(() => {
       history.push('/')
     }).catch(err => {
-      console.log('注册失败')
+      message.error('注册失败')
       console.log(err)
     }); 
   };

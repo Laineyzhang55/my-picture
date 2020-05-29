@@ -2,6 +2,8 @@ import { observable, action} from 'mobx';
 import { Auth } from '../models';
 import UserStore from './User';
 import ImageStore from './Image';
+import { message } from 'antd';
+import HistoryStory from './History';
 
 class AuthStore{
   @observable values = {
@@ -23,7 +25,7 @@ class AuthStore{
         console.log('注册成功')
         resolve(user)
       }).catch(err=>{
-        console.log('注册失败')
+        message.error('注册失败')
         reject(err)
        });
     })
@@ -44,6 +46,7 @@ class AuthStore{
     Auth.logout();
     UserStore.resetUser();
     ImageStore.reset();
+    HistoryStory.reset();
   }
 }
 
