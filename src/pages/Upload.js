@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Upload, message, Spin } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { useStores } from '../stores';
 import styled from 'styled-components';
-import { observer } from 'mobx-react';
+import { observer, useLocalStore } from 'mobx-react';
 
 
 const Load = styled.div`
@@ -30,6 +30,38 @@ const {Dragger} = Upload;
 
 const Component = observer(() => {
   const { ImageStore, UserStore } = useStores();
+  const ref1 = useRef();
+  const ref2 = useRef();
+
+  const store = useLocalStore(()=>({
+    width: null,
+    setWidth(width) {
+      store.width = width
+    },
+    get widthStr() {
+      return store.width?`/w/${store.width}`:'';
+    },
+
+    height: null,
+    setHeight(height) {
+      store.height = height
+    },
+    get heightStr() {
+      return store.height?`/h/${store.height}`:'';
+    },
+    get fullStr() {
+      //?imageView2/0/w/800/h/400)
+      return ImageStore.serverFile.attributes.url.attributes.url + '?imageView2/0' + store.widthStr + store.heightStr
+    }
+  }));
+
+  const bindWidthChange = () => {
+    store.setWidth(ref1.current.value);
+  };
+
+  const bindHeightChange = () => {
+    store.setHeight(ref2.current.value);
+  };
   const props = {
     showUploadList: false,
     beforeUpload: file => {
@@ -64,10 +96,9 @@ const Component = observer(() => {
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>
-          <p className="ant-upload-text">Click or drag file to this area to upload</p>
+          <p className="ant-upload-text">请点击或拖拽上传图品</p>
           <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-            band files
+            支持.png/.jpg/.svg/.gif图片格式
           </p>
         </Dragger>
         </Spin>
@@ -84,6 +115,16 @@ const Component = observer(() => {
               <dt>图片预览</dt>
               <dd>
                 <Image src={ImageStore.serverFile.attributes.url.attributes.url}/>
+              </dd>
+              <dt>
+                自定义尺寸
+              </dt>
+              <dd>
+              <input ref={ref1} onChange={bindWidthChange} placeholder="最大宽度（可选）"/>
+              <input ref={ref2} onChange={bindHeightChange} placeholder="最大高度（可选）"/>
+              </dd>
+              <dd>
+                <a  target="_blank" href={store.fullStr}>{store.fullStr}</a>
               </dd>
           </dl>
         </Result> : null 

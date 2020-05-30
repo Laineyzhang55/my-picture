@@ -7,9 +7,13 @@ import * as serviceWorker from './serviceWorker';
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
+import {Helmet} from 'react-helmet';
 
 ReactDOM.render(  
     <Router>
+      <Helmet>
+      <title>My Picture</title>
+      </Helmet>
       <App />
     </Router>
  ,
